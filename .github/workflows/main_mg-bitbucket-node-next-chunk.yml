@@ -26,7 +26,6 @@ jobs:
       - name: npm install and build
         run: |
           npm install
-          npm install -g next\
           npm run build
           npm run
           next build
