@@ -30,20 +30,14 @@ jobs:
           #npm run
           npx next build
 
-      - name: Prepare production deployment bundle
-        run: |
-          mkdir deployment
-          cp -r .next public package.json package-lock.json deployment/
-          cp -r server.js deployment/ || true  # If using custom server
-
       - name: Zip artifact for deployment
-        run: cd deployment && zip -r ../release.zip .
+        run: zip next.zip ./* .next -qr
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: next.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,7 +51,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip next.zip
       
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
