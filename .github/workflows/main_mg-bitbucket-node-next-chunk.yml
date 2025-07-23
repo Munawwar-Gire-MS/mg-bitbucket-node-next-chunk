@@ -27,7 +27,7 @@ jobs:
         run: |
           npm install
           npm run build
-          npm run
+          #npm run
           next build
 
       - name: Prepare production deployment bundle
